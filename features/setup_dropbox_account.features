@@ -1,0 +1,26 @@
+In order to use this program
+As a user
+I need to provide my dropbox information
+And be able to review my dropbox information
+And be able to change it.
+
+Scenario: Setting up the account
+Given I have not setup my dropbox account
+When I initiate the dropbox account
+Then the system ask me for my APP_KEY
+And the system ask me for my APP_SECRET
+And the system open the authorization page into my browser
+And the system prompts me to authorize my account
+And the system display my account information
+
+Scenario: Reviewing my account information
+Given I have setup my dropbox account
+When I request to review my account information
+Thn the system display my account information
+
+Scenario: Delete my account information
+Given I have setup my dropbox account
+When I request to delete my dropbox account information
+Then the system ask me to confirm
+And the system deletes my account information
+ 

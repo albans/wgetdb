@@ -1,0 +1,27 @@
+Feature: Browse the list of resources copied into my dropbox
+In order to remember what resources I have copied into my dropbox
+As a user
+I want to be able to browse the full list of previous download
+And filter the list by keyword
+And for each download have a quick view of its basic information directly in the list
+
+Scenario: The list is empty
+Given that the download list is empty
+When I browse the donwload list
+Then I only see a message saying the list is empty
+
+Scenario: The list is not empty and I have no active filter
+Given I have downloaded some resource previously
+When I browse the download list
+Then I see a detailed list of my previous downloads
+
+Scenario: The list is not empty and I have entered a filter query
+Given I have only downloaded a resource named <name_match> and a resource named <name_dont_match> previously 
+When I browse the download list 
+And I have enter the filter query <query>
+Then I see only the resource named <name_match>
+
+Examples:
+  | name_match | name_dont_match | query |
+  | test1      | test2           | t1    |
+  | TEST       | I don't match   | es    | 

@@ -1,0 +1,18 @@
+Feature: Copy a resource identified by a URI to my dropbox
+In order to be able to access a copy of a resource from everywhere
+As a user
+I want to get a copy of a resource identified by a URI into my dropbox whithout having to actually download the file
+
+Scenario: Copy a resource into my dropbox
+Given I enter the URI of an existing resource
+When I submit the request 
+Then then the resource start being copied into the dropbox
+And I see the progress of the download while it is being done until the operation complete
+
+Scenario: The resource cannot be found, for any reason
+Given I enter a wrong URI
+When I submit the request 
+Then the resource start being copied into the dropbox
+And I see the operation failed
+
+
