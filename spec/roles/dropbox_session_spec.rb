@@ -2,11 +2,17 @@ require 'data.rb'
 require 'roles.rb'
 require 'dropbox_sdk'
 
-APP_KEY = '95tfrq6cyqes4jn'
-APP_SECRET = 'wg9y3lfv2djaeti'
+APP_KEY='APP_KEY'
+APP_SECRET='APP_SECRET'
+AUTHORIZE_URL='AUTHORIZE_URL'
 describe DBSession do
   describe "get_authorize_url" do
     it 'return a url for a valid dropbox account' do
+      session = double("session")
+      session.should_receive(:get_request_token)
+      session.should_receive(:serialize)
+      session.should_receive(:get_authorize_url).and_return(AUTHORIZE_URL)
+      DropboxSession.should_receive(:new).once.and_return(session)
       account = DropboxAccount.new(app_key: APP_KEY, app_secret: APP_SECRET)
       account.extend DBSession
       account.get_authorize_url.should_not be nil      
