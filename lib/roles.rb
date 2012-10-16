@@ -26,11 +26,16 @@ module DBSession
     make_client unless @client
     @client
   end
-
+  def session 
+    make_session unless @session
+    @session
+  end
+  
+  private
   def make_client 
-    if (serialized_client)
-      @client = DropboxClient.deserialize(serialized_client)
-    end
-
+    @client = DropboxClient.new(session)
+  end
+  def make_session
+    @session = DropboxSession.deserialize(serialized_session)  
   end
 end    

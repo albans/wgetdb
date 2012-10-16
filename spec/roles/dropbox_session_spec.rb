@@ -13,17 +13,19 @@ describe DBSession do
     end
   end
   describe "client" do
-    it 'deserializes client from account when serialized_client is not nil' do
+    it 'build client from deserialized session' do
       client = double("client")
-      DropboxClient.stub(:deserialize){client}
-      account = DropboxAccount.new(serialized_client: 'i am a serialized client')
+      DropboxSession.should_receive(:deserialize).once.and_return(double("session"))
+      DropboxClient.should_receive(:new).once.and_return(client)
+      account = DropboxAccount.new(serialized_session: 'i am a serialized session')
       account.extend DBSession
       account.client.should be client
     end 
     it 'returns cached client when available' do
-      DropboxClient.should_receive(:deserialize).once.and_return(client)
       client = double("client")
-      account = DropboxAccount.new(serialized_client: 'i am a serialized client')
+      DropboxSession.should_receive(:deserialize).once.and_return(double("session"))
+      DropboxClient.should_receive(:new).once.and_return(client)
+      account = DropboxAccount.new(serialized_client: 'i am a serialized session')
       account.extend DBSession
       account.client.should be client
       account.client.should be client

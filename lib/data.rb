@@ -49,7 +49,6 @@ class DropboxAccount
     @id = properties[:id]  
     @app_key = properties[:app_key]  
     @app_secret = properties[:app_secret]  
-    @serialized_client = properties[:serialized_client]  
     @serialized_session = properties[:serialized_session]  
   end
   def id=(id)
@@ -75,9 +74,6 @@ class DropboxAccount
   end
   def app_secret
     @app_secret
-  end
-  def serialized_client=(serialized_client)
-    @serialized_client = serialized_client
   end
   def serialized_client
     @serialized_client
