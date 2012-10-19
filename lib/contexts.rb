@@ -11,6 +11,9 @@ class LogIntoDropboxAccount
   def run
     account = DropboxAccount.new(app_key:@app_key, app_secret:@app_secret, id:1)
     account.extend(Store)
+    account.extend(DBSession)
+    @auth_url = account.get_authorize_url
     account.store
+    @on_success.call(@auth_url)
   end
 end
