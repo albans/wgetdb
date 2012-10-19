@@ -1,4 +1,4 @@
-*.swp
+.*.sw?
 *.gem
 *.rbc
 .bundle
