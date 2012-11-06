@@ -6,7 +6,7 @@ describe Download, "download" do
     resource=Resource.new(:uri => @uri)
     @download = resource.extend(Download)
     @client = double('client')
-    @client.stub(:put_file => {:path => '/SVM.pdf', :bytes => 8*1024*1024, :size => '8 Mb'})
+    @client.stub(:put_file => {"path" => '/SVM.pdf', "bytes" => 8*1024*1024, "size" => '8 Mb'})
   end
   it 'uses the dropbox client to perform the download' do
     @client.should_receive(:put_file).with(anything, anything)

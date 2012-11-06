@@ -16,6 +16,9 @@ module Store
   def self.find_by_id(type, id)
     Repository[type][id]
   end
+  def self.find_all(type)
+    Repository[type].search(Repository::Criterion::Factory.all)
+  end
 end
 module DBSession
   def get_authorize_url

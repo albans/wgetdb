@@ -55,3 +55,15 @@ command :put do |c|
     end
   end
 end
+command :history do |c|
+  c.syntax= 'wget history'
+  c.summary= 'Output the complete list of previous operation'
+  c.description='Write the detailed list of all previous operation on resources on the standard output'
+  c.action do |args|
+    context = ListResources.new
+    resources = context.run
+    resources.each do |resource|
+      puts "#{resource.id}\t#{resource.path}\t#{resource.size}\t#{resource.uri}"
+    end
+  end
+end

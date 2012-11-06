@@ -36,3 +36,11 @@ class DownloadResource
     @on_success.call(meta)
   end
 end
+class ListResources
+  def initialize
+  end
+
+  def run
+   Store.find_all(Resource)
+  end
+end

@@ -8,7 +8,14 @@ describe Store, "Resource" do
   end
   it 'persists a resource' do
     @store.store
-    Repository[Resource].size.should be(1)
+    Repository[Resource].size.should be 1
+  end
+  it 'lists all created resources' do
+    @store.store
+    Resource.new(uri: @uri).extend(Store).store
+    resources = Store.find_all(Resource)
+    resources.size.should be 2
+    resources.first.id.should be 1
   end
 end
 describe Store, "DropboxAccount" do
@@ -18,10 +25,11 @@ describe Store, "DropboxAccount" do
   end
   it 'persists a DropboxAccount' do
     @store.store
-    Repository[DropboxAccount].size.should be(1)
+    Repository[DropboxAccount].size.should be 1
   end 
   it 'finds the account by id' do
     @store.store
     Store.find_by_id(DropboxAccount, @store.id).should be @store
   end
 end
+
