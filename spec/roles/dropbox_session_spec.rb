@@ -5,17 +5,28 @@ require 'dropbox_sdk'
 APP_KEY='APP_KEY'
 APP_SECRET='APP_SECRET'
 AUTHORIZE_URL='AUTHORIZE_URL'
+SERIALIZED='s'
 describe DBSession do
   describe "get_authorize_url" do
     it 'return a url for a valid dropbox account' do
       session = double("session")
       session.should_receive(:get_request_token)
-      session.should_receive(:serialize)
       session.should_receive(:get_authorize_url).and_return(AUTHORIZE_URL)
       DropboxSession.should_receive(:new).once.and_return(session)
       account = DropboxAccount.new(app_key: APP_KEY, app_secret: APP_SECRET)
       account.extend DBSession
       account.get_authorize_url.should_not be nil      
+    end
+  end
+  describe 'authorize' do
+    it 'get the sessions access token' do
+      session = double("session")
+      session.should_receive(:get_access_token)
+      session.should_receive(:serialize).and_return('serialized')
+      DropboxSession.should_receive(:deserialize).and_return(session)
+      account = DropboxAccount.new(app_key: APP_KEY, app_secret: APP_SECRET, serialized_session: SERIALIZED)
+      account.extend DBSession
+      account.authorize
     end
   end
   describe "client" do

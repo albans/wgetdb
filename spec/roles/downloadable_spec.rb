@@ -9,7 +9,7 @@ describe Download, "download" do
     @client.stub(:put_file => {:path => '/SVM.pdf', :bytes => 8*1024*1024, :size => '8 Mb'})
   end
   it 'uses the dropbox client to perform the download' do
-    @client.should_receive(:put_file).with(anything)
+    @client.should_receive(:put_file).with(anything, anything)
     @download.download(@client)
   end
   it 'extracts the resource information' do

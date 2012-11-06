@@ -14,6 +14,7 @@ describe LogIntoDropboxAccount do
     @context = LogIntoDropboxAccount.new(APP_KEY, APP_SECRET, method(:auth_url=))
     DBSession.stub :extended do |base|
       base.should_receive(:get_authorize_url).once.and_return(AUTH_URL)
+      base.should_receive(:authorize)
     end
   end
   
